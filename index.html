@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @keyframes render {
+            0% {
+                stroke-dasharray: 0 100;
+            }
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+
+            background-color: #eedcf2;
+        }
+
+        .canvas {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 800px;
+        }
+
+        .legend {
+            max-width: 250px;
+            margin-left: 30px;
+        }
+
+        .title {
+            font-family: "Verdana", sans-serif;
+            font-size: 18px;
+            line-height: 21px;
+            color: #591d48;
+        }
+
+        .caption-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .caption-item {
+            position: relative;
+
+            margin: 20px 0;
+            padding-left: 30px;
+
+            font-family: "Verdana", sans-serif;
+            font-size: 16px;
+            line-height: 18px;
+            color: #591d48;
+            cursor: pointer;
+        }
+
+        .caption-item:hover {
+            opacity: 0.8;
+        }
+
+        .caption-item::before {
+            content: "";
+
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            width: 20px;
+            height: 20px;
+
+            border-radius: 8px;
+        }
+
+        .caption-item:nth-child(1)::before {
+            background-color: #86cfa3;
+        }
+
+        .caption-item:nth-child(2)::before {
+            background-color: #a2c6e0;
+        }
+
+        .caption-item:nth-child(3)::before {
+            background-color: #ffc7ec;
+        }
+
+        .chart {
+            min-width: 500px;
+        }
+
+        .unit {
+            fill: none;
+            stroke-width: 24;
+            cursor: pointer;
+
+            animation-name: render;
+            animation-duration: 1.5s;
+            transition-property: all;
+            transition-duration: 1.5s;
+        }
+
+        .unit:hover,
+        .hovered {
+            opacity: 0.8;
+        }
+        .unit:nth-child(1) {
+            stroke: #86cfa3;
+            stroke-dasharray: 29 100;
+            stroke-dashoffset: 82;
+        }
+
+        .unit:nth-child(2) {
+            stroke: #a2c6e0;
+            stroke-dasharray: 30 100;
+            stroke-dashoffset: 5;
+        }
+
+        .unit:nth-child(3) {
+            stroke: #ffc7ec;
+            stroke-dasharray: 22 100;
+            stroke-dashoffset: 97;
+        }
+   
+    </style>
+   
+</head>
+
+<body>
+    <div class="canvas">
+        <div class="legend">
+            <p class="title">Что мешает во время работы дома?</p>
+            <ul class="caption-list">
+                <li class="caption-item">еда</li>
+                <li class="caption-item">соседи</li>
+                <li class="caption-item">отсутствие рабочего места</li>
+            </ul>
+        </div>
+
+        <svg class="chart" width="500" height="500" viewBox="0 0 50 50">
+            <circle class="unit" r="12" cx="50%" cy="50%"></circle>
+            <circle class="unit" r="12" cx="50%" cy="50%"></circle>
+            <circle class="unit" r="12" cx="50%" cy="50%"></circle>
+        </svg>
+    </div>
+    <script>
+        let captionsList = document.querySelectorAll('.caption-item');
+        let unitsList = document.querySelectorAll('.unit');
+
+        captionsList.forEach(function (item, index) {
+            item.addEventListener('mouseover', function () {
+                unitsList[index].classList.add('hovered');
+            });
+
+            item.addEventListener('mouseout', function () {
+                unitsList[index].classList.remove('hovered');
+            });
+        });
+    </script>
+</body>
+
+</html>
